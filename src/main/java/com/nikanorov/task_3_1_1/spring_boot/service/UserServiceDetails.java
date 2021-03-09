@@ -1,6 +1,6 @@
 package com.nikanorov.task_3_1_1.spring_boot.service;
 
-import com.nikanorov.task_3_1_1.spring_boot.dao.UserDAO;
+import com.nikanorov.task_3_1_1.spring_boot.dao.UserRepository;
 import com.nikanorov.task_3_1_1.spring_boot.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,15 +15,15 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserServiceDetails implements UserDetailsService {
 
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceDetails(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserServiceDetails(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User getUserByName(String name) {
-        return userDAO.findByName(name);
+        return userRepository.findByName(name);
     }
 
 

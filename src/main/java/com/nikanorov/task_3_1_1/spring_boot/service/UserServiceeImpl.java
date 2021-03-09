@@ -1,9 +1,7 @@
 package com.nikanorov.task_3_1_1.spring_boot.service;
 
-import com.nikanorov.task_3_1_1.spring_boot.dao.UserDAO;
-import com.nikanorov.task_3_1_1.spring_boot.models.Role;
+import com.nikanorov.task_3_1_1.spring_boot.dao.UserRepository;
 import com.nikanorov.task_3_1_1.spring_boot.models.User;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,18 +19,18 @@ import java.util.Optional;
 public class UserServiceeImpl implements UserServicee, UserDetailsService {
 
 
-    private UserDAO userDAO;
+    private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceeImpl(UserDAO userDAO, PasswordEncoder passwordEncoder) {
-        this.userDAO = userDAO;
+    public UserServiceeImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void delete(int id) {
-        userDAO.deleteById(id);
+        userRepository.deleteById(id);
     }
 
 
@@ -42,7 +40,7 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
         String pass = user.getPassword();
         user.setPassword(passwordEncoder.encode(pass));
 
-        userDAO.save(user);
+        userRepository.save(user);
     }
 
 
@@ -61,7 +59,7 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
 
 //        User userOld = findById(id);
         User userOld = null;
-        Optional<User> userOlds = userDAO.findById(id);
+        Optional<User> userOlds = userRepository.findById(id);
 
         if (userOlds.isPresent()) {
             userOld = userOlds.get();
@@ -73,14 +71,14 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
         userOld.setRoles(user.getRoles());
 
 
-        userDAO.save(userOld);
+        userRepository.save(userOld);
     }
 
 
     @Override
     public User getById(int id) {
         User user = null;
-        Optional<User> data = userDAO.findById(id);
+        Optional<User> data = userRepository.findById(id);
         if (data.isPresent()) {
             user = data.get();
         }
@@ -90,12 +88,12 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDAO.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public User getUserByName(String name) {
-        return userDAO.findByName(name);
+        return userRepository.findByName(name);
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface UserDAO extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByName(String name);
 

@@ -1,6 +1,6 @@
 package com.nikanorov.task_3_1_1.spring_boot.service;
 
-import com.nikanorov.task_3_1_1.spring_boot.dao.RoleDAO;
+import com.nikanorov.task_3_1_1.spring_boot.dao.RoleRepository;
 import com.nikanorov.task_3_1_1.spring_boot.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,27 +14,27 @@ import java.util.Optional;
 @Transactional
 public class RoleServiceImpl implements RoleService {
 
-    RoleDAO roleDAO;
+    RoleRepository roleRepository;
 
     @Autowired
-    public void setRoleDAO(RoleDAO roleDAO) {
-        this.roleDAO = roleDAO;
+    public void setRoleDAO(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public List<Role> getAllRoles() {
-        return roleDAO.findAll();
+        return roleRepository.findAll();
     }
 
     @Override
     public Role getRoleByName(String name) {
-        return roleDAO.findByRole(name);
+        return roleRepository.findByRole(name);
     }
 
     @Override
     public Role getById(long id) {
         Role role = null;
-        Optional<Role> data = roleDAO.findById(id);
+        Optional<Role> data = roleRepository.findById(id);
         if(data.isPresent()){
             role = data.get();
         }
