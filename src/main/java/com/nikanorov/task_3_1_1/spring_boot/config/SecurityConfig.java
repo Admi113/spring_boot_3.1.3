@@ -4,6 +4,7 @@ import com.nikanorov.task_3_1_1.spring_boot.config.handler.LoginSuccessHandler;
 import com.nikanorov.task_3_1_1.spring_boot.config.handler.LogoutSuccessHandlerr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,6 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 
 @Configuration
@@ -28,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
 //    }
+
+    private ApplicationContext applicationContext;
     private LoginSuccessHandler loginSuccessHandler;
     private UserDetailsService userService;
     private LogoutSuccessHandlerr logoutSuccessHandlerr;
@@ -36,10 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public SecurityConfig(LoginSuccessHandler loginSuccessHandler
             , @Qualifier("userServiceDetails") UserDetailsService userService
-            ,LogoutSuccessHandlerr logoutSuccessHandlerr) {
+            ,LogoutSuccessHandlerr logoutSuccessHandlerr
+    ,ApplicationContext applicationContext) {
         this.loginSuccessHandler = loginSuccessHandler;
         this.userService = userService;
         this.logoutSuccessHandlerr =logoutSuccessHandlerr;
+        this.applicationContext = applicationContext;
     }
 
 //    public SecurityConfig(boolean disableDefaults, LoginSuccessHandler loginSuccessHandler, UserDetailsService userService) {
@@ -121,4 +127,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return resolver;
     }
 
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setSuffix(".html");
+        return templateResolver;
+    }
 }
