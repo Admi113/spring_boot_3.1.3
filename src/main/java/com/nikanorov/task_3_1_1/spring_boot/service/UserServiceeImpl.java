@@ -3,6 +3,7 @@ package com.nikanorov.task_3_1_1.spring_boot.service;
 import com.nikanorov.task_3_1_1.spring_boot.dao.UserDAO;
 import com.nikanorov.task_3_1_1.spring_boot.models.Role;
 import com.nikanorov.task_3_1_1.spring_boot.models.User;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,6 +38,10 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
 
     @Override
     public void save(User user) {
+
+        String pass = user.getPassword();
+        user.setPassword(passwordEncoder.encode(pass));
+
         userDAO.save(user);
     }
 
@@ -44,14 +49,31 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
     @Override
     public void update(User user, int id) {
 
-        User userOld = getById(id);
-        String oldPass = userOld.getPassword();
-        String newPass = user.getPassword();
-        if (!passwordEncoder.matches(newPass, oldPass)) {
-            userOld.setPassword(passwordEncoder.encode(newPass));
+//        User userOld = getById(id);
+//        String oldPass = userOld.getPassword();
+//        String newPass = user.getPassword();
+//        if (!passwordEncoder.matches(newPass, oldPass)) {
+//            userOld.setPassword(passwordEncoder.encode(newPass));
+//        }
+//
+//        userDAO.sa  (user, id);
+
+
+//        User userOld = findById(id);
+        User userOld = null;
+        Optional<User> userOlds = userDAO.findById(id);
+
+        if (userOlds.isPresent()) {
+            userOld = userOlds.get();
         }
 
-        userDAO.  (user, id);
+        userOld.setName(user.getName());
+        userOld.setSurname(user.getSurname());
+        userOld.setAge(user.getAge());
+        userOld.setRoles(user.getRoles());
+
+
+        userDAO.save(userOld);
     }
 
 
@@ -59,10 +81,10 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
     public User getById(int id) {
         User user = null;
         Optional<User> data = userDAO.findById(id);
-        if(data.isPresent()){
+        if (data.isPresent()) {
             user = data.get();
         }
-        return user ;
+        return user;
     }
 
 
@@ -73,7 +95,7 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
 
     @Override
     public User getUserByName(String name) {
-        return userDAO.findByUserName(name);
+        return userDAO.findByName(name);
     }
 
     @Override

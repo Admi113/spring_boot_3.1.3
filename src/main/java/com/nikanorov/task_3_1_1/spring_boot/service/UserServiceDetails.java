@@ -23,7 +23,7 @@ public class UserServiceDetails implements UserDetailsService {
     }
 
     public User getUserByName(String name) {
-        return userDAO.findByUserName(name);
+        return userDAO.findByName(name);
     }
 
 
