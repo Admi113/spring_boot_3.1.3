@@ -17,20 +17,75 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>My app</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-<div class="row-color">
 
-    <div class="col-md-2" style="background-color:black ">First</div>
-    <div class="col-md-8" style="background-color:black ">
-        <th:text style="white" > First</th:text>
-       </div>
-    <div class="col-md-2" style="background-color:black ">First</div>
-</div>
 
+<div class="navbar navbar-dark bg-dark shadow-sm">
+ <div >
+     <text class="text-navbar" th:text="${currentuser.getName()}" style="color: aliceblue ">admin</text>
+
+     <text  style="color: aliceblue ">with roles:</text>
+     <text th:text="${currentuser.getRolesList()}" style="color: aliceblue ">admin</text>
 </div>
+    <div>
+        <form name="logoutForm" id="#logout" th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+</div>
+<!--    <div class="container container-inline   ">-->
+
+<!--        <div class='row'>-->
+<!--            <div class ='md-col-4'>-->
+<!--                <h1>Text on the left</h1>-->
+<!--            </div>-->
+<!--            <div class = 'md-col-4.col-md-offset-4'>-->
+<!--                <h3 class='text-right'>This to the right but on the same line</h3>-->
+<!--            </div>-->
+<!--        <div class="d-inline" th:text="${currentuser.getName()}" style="color: aliceblue ">admin</div>-->
+        <!--        <span class="navbar-text" style="color: aliceblue ">With Roles</span>-->
+
+        <!--        <span class="navbar-text" th:text="${currentuser.getRolesList()}" style="color: aliceblue ">ADMIN_ROLE</span>-->
+
+<!--    </div>-->
+    <!--    <form  class="form-inline" name="logoutForm" th:action="@{/logout}" method="post">-->
+    <!--&lt;!&ndash;        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">&ndash;&gt;-->
+    <!--        <input class="btn btn-link  my-2" type="submit" value="Sign Out"/>-->
+    <!--    </form>-->
+
+    <!--    <button class="btn btn-link my-2 " type="submit">Search</button>-->
+    <!--            <a href="#" class="navbar-brand d-flex align-items-center">-->
+    <!--                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>-->
+    <!--                <strong>Album</strong>-->
+    <!--            </a>-->
+    <!--            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--                <span class="navbar-toggler-icon"></span>-->
+    <!--            </button>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--    <div class="row">-->
+
+<!--    <div class="col-md-10" style="color: aliceblue ">-->
+<!--        <h2 th:text="${currentuser.getName()}"  >admin</h2>-->
+<!--        <h2  >With Roles</h2>-->
+<!--        <h2  th:text="${currentuser.getRolesList()}"  >ADMIN_ROLE</h2>-->
+
+<!--    </div>-->
+<!--    <div class="col-md-2" style="color: aliceblue">-->
+<!--      <p class="text-right">Second </p>-->
+<!--    </div>-->
+
+
+<!--</div>-->
 
 
 <div>
@@ -62,8 +117,8 @@
                    class="btn btn-info" role="button"
                 >
                     <text style="color: aliceblue">EDIT</text>
-                    </a>
-<!--            <button class="btn btn-info">EDIT</button>-->
+                </a>
+                <!--            <button class="btn btn-info">EDIT</button>-->
             </td>
             <td th:text>DELETE</td>
         </tr>
@@ -85,7 +140,7 @@
 <br/>
 
 <p> Logout </p>
-<form name="logoutForm" th:action="@{/logout}" method="post">
+<form name="logoutForm" id="logout" th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
 

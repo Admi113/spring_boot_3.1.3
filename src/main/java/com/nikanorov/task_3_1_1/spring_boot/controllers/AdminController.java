@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 //@RestController
@@ -28,8 +29,9 @@ public class AdminController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
         model.addAttribute("users", userServicee.getAllUsers());
+        model.addAttribute("currentuser",userServicee.getUserByName(principal.getName())) ;
         return "/admin/index";
     }
 
