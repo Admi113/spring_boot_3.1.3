@@ -48,11 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.applicationContext = applicationContext;
     }
 
-//    public SecurityConfig(boolean disableDefaults, LoginSuccessHandler loginSuccessHandler, UserDetailsService userService) {
-//        super(disableDefaults);
-//        this.loginSuccessHandler = loginSuccessHandler;
-//        this.userService = userService;
-//    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -109,23 +105,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
-    //    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
-//    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
-    @Bean
-    public ViewResolver getViewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/jsp/");
-        resolver.setSuffix(".jsp");
-        resolver.setViewClass(JstlView.class);
-        return resolver;
-    }
+//    @Bean
+//    public ViewResolver getViewResolver(){
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/jsp/");
+//        resolver.setSuffix(".jsp");
+//        resolver.setViewClass(JstlView.class);
+//        return resolver;
+//    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {

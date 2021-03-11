@@ -154,6 +154,14 @@ public class User implements UserDetails  {
 
         return roleList;
     }
+    public String getRolesWithoutPrefix(){
+        StringBuilder result = new StringBuilder();
+        for(Role role:getRolesList()){
+            result.append(role.getRole()
+                    .replaceAll("ROLE_","")+ " ");
+        }
+        return result.toString();
+    }
 
     public void addRole(Role role) {
         roles.add(role);
