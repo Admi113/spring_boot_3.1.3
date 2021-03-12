@@ -66,8 +66,8 @@ public class AdminController {
             , @RequestParam("select_role") Long[] roles) {
         if (result.hasErrors())
             return "admin/new";
-        for (Long role : roles) {
-            user.addRole(roleService.getById(role));
+        for (Long roleId : roles) {
+            user.addRole(roleService.getById(roleId));
         }
         userServicee.save(user);
         return "redirect:/admin";
