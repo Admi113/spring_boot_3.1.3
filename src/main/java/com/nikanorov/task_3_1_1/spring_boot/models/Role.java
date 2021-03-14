@@ -61,6 +61,7 @@ public class Role
     @Override
     public String getAuthority() {
         return role;
+//        return (role.replaceAll("ROLE_","")+ " ");
     }
 
     public Set<User> getUsers() {

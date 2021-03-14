@@ -29,18 +29,15 @@ public class AdminController {
     }
 
     @GetMapping
-    public String index(Model model, Principal principal) {
+    public String index(Model model, Principal principal
+            ) {
         model.addAttribute("users", userServicee.getAllUsers());
-        model.addAttribute("currentuser",userServicee.getUserByName(principal.getName())) ;
-        return "/admin/index";
+        model.addAttribute("currentuser", userServicee.getUserByName(principal.getName()));
+        model.addAttribute("roles", roleService.getAllRoles());
+        User newUser = new User();
+        model.addAttribute("new_user",newUser);
+        return "admin/index";
     }
-
-// @GetMapping
-//    public ModelAndView index() {
-//        ModelAndView model = new ModelAndView("/admin/index");
-//        model.addObject("users", userServicee.getAllUsers());
-//        return model;
-//    }
 
 
     @GetMapping("/{id}")
@@ -82,16 +79,29 @@ public class AdminController {
         return "admin/edit";
     }
 
+//    @PatchMapping("/{id}")
+//    public String update(@ModelAttribute("user")
+//                         @Valid User user, BindingResult result
+//            , @PathVariable("id") int id, @RequestParam("select_role") Long[] roles) {
+//        if (result.hasErrors())
+//            return "admin/edit";
+//        for (Long role : roles) {
+//            user.addRole(roleService.getById(role));
+//        }
+//        userServicee.update(user, id);
+//        return "redirect:/admin";
+//    }
+
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user")
                          @Valid User user, BindingResult result
-            , @PathVariable("id") int id, @RequestParam("select_role") Long[] roles) {
+            ,  @RequestParam("select_role") Long[] roles) {
         if (result.hasErrors())
             return "admin/edit";
         for (Long role : roles) {
             user.addRole(roleService.getById(role));
         }
-        userServicee.update(user, id);
+//        userServicee.update(user, id);
         return "redirect:/admin";
     }
 
