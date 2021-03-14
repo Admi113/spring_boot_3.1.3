@@ -92,7 +92,7 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update")
     public String update(@ModelAttribute("user")
                          @Valid User user, BindingResult result
             ,  @RequestParam("select_role") Long[] roles) {
