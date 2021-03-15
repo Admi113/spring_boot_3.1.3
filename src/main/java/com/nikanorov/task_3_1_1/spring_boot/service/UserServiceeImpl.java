@@ -53,7 +53,8 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
         if (userOlds.isPresent()) {
             userOld = userOlds.get();
         }
-
+        String pass = user.getPassword();
+        userOld.setPassword(passwordEncoder.encode(pass));
         userOld.setName(user.getName());
         userOld.setSurname(user.getSurname());
         userOld.setAge(user.getAge());

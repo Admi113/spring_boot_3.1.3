@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<div>
-    <form method="post" action="/users/login">
-        <input name="username"/>
-        <input name="password"/>
-        <input type="submit"/>
+<div class="container col-lg-3" style="padding-top: 10px ">
+    <form class="form-signin" method="post" action="/admin/login">
+        <h2 class="form-signin-heading" style="margin: 10px;margin-left: 0">Please sign in</h2>
+        <p  style="margin: 0;padding: 0">
+            <label for="username" class="sr-only">Email adress</label>
+            <input type="text" id="username" name="username"
+                   class="form-control" placeholder="Email adress" required="" autofocus="">
+        </p>
+        <p  style="margin: 0;padding: 0">
+            <label for="password" class="sr-only" >Password</label>
+            <input type="password" id="password" name="password"
+                   class="form-control" placeholder="Password" required="">
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
 </div>
-
-
-<br/>
-
-<p> Logout </p>
-<form name="logoutForm" th:action="@{/logout}" method="post">
-    <input  type="submit" value="Sign Out"/>
-</form>
 </body>
 </html>
