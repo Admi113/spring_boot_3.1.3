@@ -29,7 +29,7 @@ public class UsersController {
         String userName = authentication.getName();
         User user = userServicee.getUserByName(userName);
         model.addAttribute("roles", user.getRolesList());
-        model.addAttribute("user1", user);
+        model.addAttribute("currentuser", user);
         return "user/show";
     }
 

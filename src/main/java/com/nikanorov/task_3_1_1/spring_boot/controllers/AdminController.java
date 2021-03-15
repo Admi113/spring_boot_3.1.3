@@ -79,34 +79,26 @@ public class AdminController {
         return "admin/edit";
     }
 
-//    @PatchMapping("/{id}")
-//    public String update(@ModelAttribute("user")
-//                         @Valid User user, BindingResult result
-//            , @PathVariable("id") int id, @RequestParam("select_role") Long[] roles) {
+
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute User user
+          ,@RequestParam("select_role") Long[] roles  ) {
+        System.out.println("it works");
 //        if (result.hasErrors())
 //            return "admin/edit";
-//        for (Long role : roles) {
-//            user.addRole(roleService.getById(role));
-//        }
-//        userServicee.update(user, id);
-//        return "redirect:/admin";
-//    }
-
-    @PatchMapping("/update")
-    public String update(@ModelAttribute("user")
-                         @Valid User user, BindingResult result
-            ,  @RequestParam("select_role") Long[] roles) {
-        if (result.hasErrors())
-            return "admin/edit";
         for (Long role : roles) {
             user.addRole(roleService.getById(role));
         }
-//        userServicee.update(user, id);
+        int id =user.getId();
+        userServicee.update(user, id);
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    @PostMapping("/delete")
+    public String delete(@ModelAttribute
+                                     User user) {
+       int id = user.getId();
         userServicee.delete(id);
         return "redirect:/admin";
     }

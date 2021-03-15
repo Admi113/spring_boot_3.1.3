@@ -1,34 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Required meta tags -->
+
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta charset="ISO-8859-1">
+
+    <title>My app</title>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-Show User
 
-<div>
 
-    <p th:text="${user1.getId()}">VALUE</p>
-    <p th:text="${user1.getName()}">VALUE</p>
-    <p th:text="${user1.getSurname()}">VALUE</p>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-text" style="padding: 0px">
+        <text class="text-navbar" th:text="${currentuser.getEmail()}"
+              style="color: aliceblue; font-weight: bold;font-size: x-large ">admin@mail.ru
+        </text>
+        <text style="color: aliceblue; font-size: x-large ">with roles:</text>
+        <text th:text="${currentuser.getRolesWithoutPrefix()}"
+              style="color: aliceblue;font-size: x-large">admin
+        </text>
+    </div>
 
-    <br/>
+    <div class="navbar-text navbar-right" style="margin: 0px;padding: 0">
+        <a style="color: darkgray; font-size: large "
+           href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a>
 
-    <div th:each="role :${roles}">
-        <p th:text="${role}"></p>
 
+    </div>
+</nav>
+<div class="container-fluid" style="padding-left: 0px">
+
+    <div class="row">
+
+        <div class="col-lg-2 " style="height: 100vh;padding-right: 0">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"
+                 style="padding-top: 10px">
+                <a class="nav-link show active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">User</a>
+
+            </div>
+        </div>
+
+        <div class="col-lg-10  " style="background-color: whitesmoke;height: 100vh;margin: 0">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="container container-text">
+                        <p class="text " style="font-size: xx-large; font-weight: bold">User information-page</p>
+                    </div>
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-top" style="background-color: lightgrey">
+                                <div class="container"
+                                     style="font-weight: bold;font-size: 20px;border: 1px;margin: 5px">
+                                    About user
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped" style="border-top: 1px">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+
+                                        <td th:utext="${currentuser.getId()}">model</td>
+                                        <td th:utext="${currentuser.getName()}">model</td>
+                                        <td th:utext="${currentuser.getSurname()}">model</td>
+                                        <td th:utext="${currentuser.getAge()}">model</td>
+                                        <td th:utext="${currentuser.getEmail()}">model</td>
+                                        <td th:utext="${currentuser.getRolesWithoutPrefix()}">model</td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
     </div>
 
 
 </div>
+</div>
 
 
-<br/>
-
-<p> Logout </p>
-<form name="logoutForm" th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
+<!--Форма для логаута!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+    <input hidden type="submit" value="Sign Out"/>
 </form>
+
+
 </body>
+
 </html>
