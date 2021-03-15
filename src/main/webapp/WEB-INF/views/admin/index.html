@@ -139,7 +139,7 @@
                                                                                    class="col-form-label">ID</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="id"
-                                                                                   name="id">
+                                                                                   name="id" th:value="${user.id}">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="firstname"
@@ -147,7 +147,7 @@
                                                                                 name</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="firstname"
-                                                                                   name="name">
+                                                                                   name="name" th:value="${user.name}">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="lastname"
@@ -155,14 +155,14 @@
                                                                                 name</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="lastname"
-                                                                                   name="surname">
+                                                                                   name="surname" th:value="${user.surname}">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="age"
                                                                                    class="col-form-label">Age</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="age"
-                                                                                   name="age">
+                                                                                   name="age" th:value="${user.age}">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="email" class="col-form-label">Email</label>
@@ -174,7 +174,7 @@
                                                                             <label for="password"
                                                                                    class="col-form-label">Password</label>
                                                                             <input type="password" class="form-control"
-                                                                                   id="password" name="password">
+                                                                                   id="password" name="password" th:value="${user.password}">
                                                                         </div>
 
                                                                         <div class="form-group ">
