@@ -1,30 +1,35 @@
 package com.nikanorov.task_3_1_1.spring_boot.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
+import com.nikanorov.task_3_1_1.spring_boot.models.User;
+import com.nikanorov.task_3_1_1.spring_boot.service.RoleService;
+import com.nikanorov.task_3_1_1.spring_boot.service.UserServicee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController("/admin")
+public class RController {
+
+    private RoleService roleService;
+    private UserServicee userServicee;
 
 
+    @Autowired
+    public RController(RoleService roleService, UserServicee userServicee) {
+        this.roleService = roleService;
+        this.userServicee = userServicee;
+    }
 
-    @GetMapping()
-    public String index() {
-        return "admin/index";
+    @GetMapping("/users")
+    public List<User> showAllUsers() {
+        List<User> users = userServicee.getAllUsers();
+        return users;
     }
 
 
-//    private RoleService roleService;
-//    private UserServicee userServicee;
-//
-//
-//    @Autowired
-//    public AdminController(RoleService roleService, UserServicee userServicee) {
-//        this.roleService = roleService;
-//        this.userServicee = userServicee;
-//    }
-//
 //    @GetMapping
 //    public String index(Model model, Principal principal
 //            ) {

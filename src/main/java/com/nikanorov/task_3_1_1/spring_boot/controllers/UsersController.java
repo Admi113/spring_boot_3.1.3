@@ -24,14 +24,14 @@ public class UsersController {
     }
 
 
-    @GetMapping
-    public String showUserInfo(Model model, Authentication authentication) {
-        String userName = authentication.getName();
-        User user = userServicee.getUserByName(userName);
-        model.addAttribute("roles", user.getRolesList());
-        model.addAttribute("currentuser", user);
-        return "user/show";
-    }
+//    @GetMapping
+//    public String showUserInfo(Model model, Authentication authentication) {
+//        String userName = authentication.getName();
+//        User user = userServicee.getUserByName(userName);
+//        model.addAttribute("roles", user.getRolesList());
+//        model.addAttribute("currentuser", user);
+//        return "user/show";
+//    }
 
 
 }
