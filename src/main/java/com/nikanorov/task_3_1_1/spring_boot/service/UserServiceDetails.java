@@ -26,13 +26,9 @@ public class UserServiceDetails implements UserDetailsService {
         return userRepository.findByName(name);
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         User user = getUserByName(name);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", name));
-        }
-        return user;
+             return user;
     }
 }

@@ -11,49 +11,180 @@
 
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 
 
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>-->
+
+<!--<table class="table table-stripped">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>First Name</th>-->
+<!--        <th>Last Name</th>-->
+<!--        <th>Age</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Role</th>-->
+<!--        <th>Edit</th>-->
+<!--        <th>Delete</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody id="data">-->
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
-<table class ="table table-stripped">
-    <tbody id="data">
+<!--    </tbody>-->
+<!--</table>-->
 
 
-    </tbody>
-</table>
+<div class="card">
+    <div class="card-top" style="background-color: lightgrey">
+        <div class="container"
+             style="font-weight: bold;font-size: 20px;border: 1px;margin: 5px">
+            All users
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped" style="border-top: 1px">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-12" style=" left: 34% ">
+    <form class="add-user-form">
+
+        <div class="form-group col-md-4 "  style="text-align: center; vertical-align: middle">
+            <label for="username">First name</label>
+            <input type="text" class="form-control" id="username"
+                   >
+        </div>
+
+        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
+            <label for="lastname">Last name</label>
+            <input type="text" class="form-control" id="lastname"
+                   >
+        </div>
+
+        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="age"
+                  >
+        </div>
+
+
+        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4"
+                   >
+        </div>
+
+        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password"
+                  />
+        </div>
+
+<!--        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">-->
+<!--            <label>Role</label>-->
+<!--            <select name="select_role" class="form-control"-->
+<!--                    multiple="multiple">-->
+<!--                <option th:each="role: ${roles}"-->
+<!--                        th:value="${role.id}" th:text="${role.getAuthority()}">-->
+<!--            </select>-->
+<!--        </div>-->
+
+        <div class="container" style="left: 80%">
+            <button type="submit" class="btn btn-primary btn-success"
+                    style="margin-left: 8.5%"> Add new user
+            </button>
+        </div>
+    </form>
+</div>
+
 
 <script>
-    fetch("http://localhost:8081/users/").then(
-        response=>{
-            response.json().then(
-                data=>{
-                    console.log(data);
-                    if(data.length>0){
-                        let temp ="";
+    const addUserForm = document.querySelector('.add-user-form');
+    const printTable = () => {
+        let temp = "";
+        fetch("http://localhost:8081/admin/users/").then(
+            response => {
+                response.json()
+                    .then(data => {
+                        console.log(data);
+                        if (data.length > 0) {
 
-                        data.forEach((u)=>{
-                            temp += "<tr>";
-                            temp += "<td>"+ u.surname+ "</td>";
-                            temp += "<td>"+ u.age+ "</td></tr>";
-                            // temp += "<td>"+u.surname+"</td>";
+
+                            data.forEach((user) => {
+
+                                temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
+                                                <td >${user.name}</td>
+                                                <td >${user.surname}</td>
+                                                <td >${user.age}</td>
+                                                <td >${user.email}</td><td>`
+
+                                for (let i = 0; i < user.roles.length; i++) {
+                                    temp += `${user.roles[i].role} `
+                                }
+                                temp += `</td ></tr>`;
 
                             })
-                        document.getElementById("data").innerHTML = temp;
+                            document.getElementById("data").innerHTML = temp;
+                        }
                     }
-                }
-            )
-        }
-    )
+                )
+            }
+        )
+    }
+    printTable();
 
+    addUserForm.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        console.log("h")
+        fetch("http://localhost:8081/admin/save",{
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                accountNonExpired: true,
+                accountNonLocked: true,
+                enabled: true,
+                credentialsNonExpired: true,
+                // id: 3,
+                name: "adminm",
+                surname: "Surname",
+                password: "$2a$12$5fzhzwX1t6vKDl9ZCraHouCQ6yLDihJcsJpibtcILm1KkSbxaGfjK",
+                email: "user@mail.ru",
+                age: 221,
+                roles: [
+                    {id: 2, role: "ROLE_USER", users: null, authority: "ROLE_USER"}
+                ],
+            })
+        });
+        // .then(res=>res.json());
+        printTable();
+    })
 
 </script>
 </body>

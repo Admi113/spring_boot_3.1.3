@@ -5,12 +5,14 @@ import com.nikanorov.task_3_1_1.spring_boot.models.User;
 import com.nikanorov.task_3_1_1.spring_boot.service.RoleService;
 import com.nikanorov.task_3_1_1.spring_boot.service.UserServicee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/admin")
+@RestController
+@RequestMapping("/admin")
 public class RController {
 
     private RoleService roleService;
@@ -27,6 +29,12 @@ public class RController {
     public List<User> showAllUsers() {
         List<User> users = userServicee.getAllUsers();
         return users;
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Void> createUser(@RequestBody User user) {
+        userServicee.save(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 
