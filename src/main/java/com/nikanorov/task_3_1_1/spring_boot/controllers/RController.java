@@ -1,6 +1,7 @@
 package com.nikanorov.task_3_1_1.spring_boot.controllers;
 
 
+import com.nikanorov.task_3_1_1.spring_boot.models.Role;
 import com.nikanorov.task_3_1_1.spring_boot.models.User;
 import com.nikanorov.task_3_1_1.spring_boot.service.RoleService;
 import com.nikanorov.task_3_1_1.spring_boot.service.UserServicee;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -31,10 +33,24 @@ public class RController {
         return users;
     }
 
+    @GetMapping("/roles")
+    public List<Role> showAllRoles() {
+        List<Role> roles = roleService.getAllRoles();
+        return roles;
+    }
+
+    @GetMapping("/auth")
+    public User showCurrentUser(Principal principal) {
+        String userName = principal.getName();
+        User user = userServicee.getUserByName(userName);
+        return user;
+    }
+
     @PostMapping("/save")
-    public ResponseEntity<Void> createUser(@RequestBody User user) {
+    public List<User> createUser(@RequestBody User user) {
         userServicee.save(user);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        List<User> users = userServicee.getAllUsers();
+        return users;
     }
 
 

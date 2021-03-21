@@ -149,37 +149,37 @@ public class User implements UserDetails {
     }
 
 
-    public void setRoles(List<Role> roles) {
-        this.roles = new HashSet<Role>(roles);
-    }
+//    public void setRoles(List<Role> roles) {
+//        this.roles = new HashSet<Role>(roles);
+//    }
 
 
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public List<Role> getRolesList() {
-        List<Role> roleList = new ArrayList<>();
-        roleList.addAll(getRoles());
+//    public List<Role> getRolesList() {
+//        List<Role> roleList = new ArrayList<>();
+//        roleList.addAll(getRoles());
+//
+//        return roleList;
+//    }
 
-        return roleList;
-    }
+//    public String getRolesWithoutPrefix() {
+//        StringBuilder result = new StringBuilder();
+//        for (Role role : getRolesList()) {
+//            result.append(role.getRole()
+//                    .replaceAll("ROLE_", "") + " ");
+//        }
+//        return result.toString();
+//    }
 
-    public String getRolesWithoutPrefix() {
-        StringBuilder result = new StringBuilder();
-        for (Role role : getRolesList()) {
-            result.append(role.getRole()
-                    .replaceAll("ROLE_", "") + " ");
-        }
-        return result.toString();
-    }
-
-    public User getFromListById(List<User> users, int id) {
-        return users.stream().filter(u -> u.getId() == id).collect(Collectors.toList()).get(0);
-
-    }
-
-    public void addRole(Role role) {
-        roles.add(role);
-    }
+//    public User getFromListById(List<User> users, int id) {
+//        return users.stream().filter(u -> u.getId() == id).collect(Collectors.toList()).get(0);
+//
+//    }
+//
+//    public void addRole(Role role) {
+//        roles.add(role);
+//    }
 }

@@ -11,7 +11,7 @@
 
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
@@ -19,30 +19,8 @@
 
 <body>
 
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>-->
-
-<!--<table class="table table-stripped">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>ID</th>-->
-<!--        <th>First Name</th>-->
-<!--        <th>Last Name</th>-->
-<!--        <th>Age</th>-->
-<!--        <th>Email</th>-->
-<!--        <th>Role</th>-->
-<!--        <th>Edit</th>-->
-<!--        <th>Delete</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody id="data">-->
-
-
-<!--    </tbody>-->
-<!--</table>-->
-
+<nav class="navbar navbar-dark bg-dark" id="navbar">
+</nav>
 
 <div class="card">
     <div class="card-top" style="background-color: lightgrey">
@@ -52,7 +30,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-striped" style="border-top: 1px">
+        <table class="table table-striped" id="myTable" style="border-top: 1px">
             <thead>
             <tr>
                 <th>ID</th>
@@ -66,125 +44,278 @@
             </tr>
             </thead>
             <tbody id="data">
-
+            <td>
+                <!--    Edit в Таблице!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="container" style="margin-top: -5%;margin-left: -15% ">
+                    <a class="btn btn-primary eBtn">Edit</a></div>
+            </td>
             </tbody>
         </table>
     </div>
 </div>
 <div class="col-md-12" style=" left: 34% ">
-    <form class="add-user-form">
+    <form class="add-user-form" id="userCreateForm">
 
-        <div class="form-group col-md-4 "  style="text-align: center; vertical-align: middle">
-            <label for="username">First name</label>
-            <input type="text" class="form-control" id="username"
-                   >
+        <div class="form-group col-md-4 " style="text-align: center; vertical-align: middle">
+            <label for="username_create">First name</label>
+            <input type="text" class="form-control" id="username_create"
+            >
         </div>
 
         <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
-            <label for="lastname">Last name</label>
-            <input type="text" class="form-control" id="lastname"
-                   >
+            <label for="lastname_create">Last name</label>
+            <input type="text" class="form-control" id="lastname_create"
+            >
         </div>
 
         <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
-            <label for="age">Age</label>
-            <input type="text" class="form-control" id="age"
-                  >
-        </div>
-
-
-        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4"
-                   >
+            <label for="age_create">Age</label>
+            <input type="text" class="form-control" id="age_create"
+            >
         </div>
 
         <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password"
-                  />
+            <label for="inputEmail4_create">Email</label>
+            <input type="email" class="form-control" id="inputEmail4_create"
+            >
         </div>
 
-<!--        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">-->
-<!--            <label>Role</label>-->
-<!--            <select name="select_role" class="form-control"-->
-<!--                    multiple="multiple">-->
-<!--                <option th:each="role: ${roles}"-->
-<!--                        th:value="${role.id}" th:text="${role.getAuthority()}">-->
-<!--            </select>-->
-<!--        </div>-->
-
-        <div class="container" style="left: 80%">
-            <button type="submit" class="btn btn-primary btn-success"
-                    style="margin-left: 8.5%"> Add new user
-            </button>
+        <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">
+            <label for="password_create">Password</label>
+            <input type="password" class="form-control" id="password_create"
+            />
         </div>
+
+        <!--                                <div class="form-group col-md-4" style="text-align: center; vertical-align: middle">-->
+        <!--                                    <label>Role</label>-->
+        <!--                                    <select name="select_role" class="form-control"-->
+        <!--                                            multiple="multiple" id="select_role">-->
+        <!--                                        <option id="selectoptions" th:each="role: ${roles}"-->
+        <!--                                                th:value="${role.id}" th:text="${role.getAuthority()}">-->
+        <!--                                    </select>-->
+        <!--                                </div>-->
+
+        <!--        <div class="container" style="left: 80%">-->
+        <!--            <button type="submit" class="btn btn-primary btn-success"-->
+        <!--                    style="margin-left: 8.5%"> Add new user-->
+        <!--            </button>-->
+        <!--        </div>-->
     </form>
 </div>
+<td>
+    <!--    DELETE в Таблице!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <div class="container" style="margin-top: -5%;margin-left: -15% ">
+        <button type="button" class="btn btn-danger eBtn"
+                data-toggle="modal">Delete
+        </button>
+    </div>
+
+    <div class="myForm">
+        <form class="edit-user-form" th:action="@{admin/save}" method="post">
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="id" class="col-form-label">ID:</label>
+                                <input type="text" class="form-control" id="id" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="surname" class="col-form-label">Surname:</label>
+                                <input type="text" class="form-control" id="surname" value="">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <input type="submit" class="btn btn-primary" value="" save>Отправить сообщение</input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</td>
 
 
 <script>
+
+
+    const getUSersUrl = "http://localhost:8081/admin/users/";
+    const getRolesUrl = "http://localhost:8081/admin/roles/";
+    const getCurrentUser = "http://localhost:8081/admin/auth/";
     const addUserForm = document.querySelector('.add-user-form');
-    const printTable = () => {
-        let temp = "";
-        fetch("http://localhost:8081/admin/users/").then(
-            response => {
-                response.json()
-                    .then(data => {
-                        console.log(data);
-                        if (data.length > 0) {
+    const editUserForm =document.querySelector('.edit-user-form');
+    // const modalDel = document.getElementById("deleteModal");
+    const printUsers = (users) => {
+        {
+            let temp = "";
+            console.log(users);
+            if (users.length > 0) {
+                users.forEach((user) => {
 
-
-                            data.forEach((user) => {
-
-                                temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
+                    temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
                                                 <td >${user.name}</td>
                                                 <td >${user.surname}</td>
                                                 <td >${user.age}</td>
                                                 <td >${user.email}</td><td>`
 
-                                for (let i = 0; i < user.roles.length; i++) {
-                                    temp += `${user.roles[i].role} `
-                                }
-                                temp += `</td ></tr>`;
-
-                            })
-                            document.getElementById("data").innerHTML = temp;
-                        }
+                    for (let i = 0; i < user.roles.length; i++) {
+                        temp += `${user.roles[i].role} `
                     }
-                )
-            }
-        )
-    }
-    printTable();
+                    temp += `</td >
+                       <td> <div class="container" style="margin-top: -5%;margin-left: -15% ">
+                             <a href="http://localhost:8081/admin/users/" type="button" id="${user.id}" class="btn btn-primary" data-toggle="modal"
+                             data-target="#exampleModal">Edit</a> </div></td>
 
-    addUserForm.addEventListener("submit",(e)=>{
+                    </tr>`
+                })
+                document.getElementById("data").innerHTML = temp;
+            }
+        }
+    }
+
+    const printTable = (url) => {
+        fetch(url)
+            .then(response => {
+                response.json()
+                    .then(data => printUsers(data))
+            })
+    }
+    printTable(getUSersUrl);
+
+    //---------------------Nav Bar-------------------------------------
+
+    const printHeader = (user) => {
+
+        let temp = "";
+        console.log(user);
+        temp += `   <div class="navbar-text" style="padding: 0px">
+                        <text class="text-navbar" style="color: aliceblue;
+                        font-weight: bold;font-size: x-large ">${user.email}
+                        </text>
+                        <text style="color: aliceblue; font-size: x-large ">with roles:</text>
+                        <text  style="color: aliceblue;font-size: x-large">`
+        for (let i = 0; i < user.roles.length; i++) {
+            temp += `${user.roles[i].role} `
+        }
+        temp += `</text>`
+        temp += ` </div>
+
+            <div class="navbar-text navbar-right" style="margin: 0px;padding: 0">
+            <a style="color: darkgray; font-size: large "
+            href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a>
+             </div>`
+
+        document.getElementById("navbar").innerHTML = temp;
+    }
+    const printNavBar = (url) => {
+        fetch(url)
+            .then(response => {
+                response.json()
+                    .then(data => printHeader(data))
+            })
+    }
+    printNavBar(getCurrentUser);
+    //---------------------Roles Form-------------------------------------
+    const printCreateForm = (roles) => {
+        {
+            let temp1 = `<div class=\"form-group col-md-4\" style=\"text-align: center; vertical-align: middle\">
+            <label>Role</label>
+            <select name=\"select_role\" class=\"form-control\"\n
+            multiple=\"multiple\" id=\"select_role\">;`
+            console.log(roles);
+            if (roles.length > 0) {
+                roles.forEach((role) => {
+                    temp1 += `<option id="selectoptions${role.id}" value= ${role.id} >`
+                    temp1 += ` ${role.role} `
+                    temp1 += `</option> `
+                })
+                temp1 += `</select></div> <div class="container" style="left: 80%">
+            <button type="submit" class="btn btn-primary btn-success"
+            style="margin-left: 8.5%"> Add new user
+            </button>
+            </div>`
+                document.getElementById("userCreateForm").innerHTML += temp1;
+            }
+        }
+    }
+    const printForm = (url) => {
+        fetch(url)
+            .then(response => {
+                response.json()
+                    .then(data => printCreateForm(data))
+            })
+    }
+    printForm(getRolesUrl);
+
+    //-------------------------------Добавляем юзера_----------------
+    addUserForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("h")
-        fetch("http://localhost:8081/admin/save",{
+        let role = document.getElementById("select_role");
+        const roles = [];
+        for (let i = 0; i < role.length; i++) {
+            if (role[i].selected) {
+                let data = {
+                    id: Number(role[i].value),
+                    role: role[i].text
+                }
+                roles.push(data)
+            }
+        }
+        console.log(roles);
+
+        fetch("http://localhost:8081/admin/save", {
             method: "POST",
-            headers:{
-                "Content-Type":"application/json"
+            headers: {
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                accountNonExpired: true,
-                accountNonLocked: true,
-                enabled: true,
-                credentialsNonExpired: true,
-                // id: 3,
-                name: "adminm",
-                surname: "Surname",
-                password: "$2a$12$5fzhzwX1t6vKDl9ZCraHouCQ6yLDihJcsJpibtcILm1KkSbxaGfjK",
-                email: "user@mail.ru",
-                age: 221,
-                roles: [
-                    {id: 2, role: "ROLE_USER", users: null, authority: "ROLE_USER"}
-                ],
+                name: document.getElementById("username_create").value,
+                surname: document.getElementById("lastname_create").value,
+                password: document.getElementById("password_create").value,
+                email: document.getElementById("inputEmail4_create").value,
+                age: document.getElementById("age_create").value,
+                roles: roles
             })
-        });
-        // .then(res=>res.json());
-        printTable();
+        })
+            .then(response => {
+                response.json()
+                    .then(data => {
+                        printUsers(data)
+                    })
+            });
+
     })
+editUserForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    console.log(e.parent.parent.id)
+})
+
+
+    // $(document).ready(function () {
+    //
+    //     $('.table .eBtn').on('click',function (event){
+    //
+    //         $('.myForm #exampleModal').modal();
+    //         console.log("WTF");
+    //     });
+    // });
+
 
 </script>
 </body>
