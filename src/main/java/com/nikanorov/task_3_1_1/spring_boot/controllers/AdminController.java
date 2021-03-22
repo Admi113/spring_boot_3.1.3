@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
 
-
     @GetMapping()
     public String index() {
+        return "admin/index";
+    }
+
+    @PostMapping()
+    public String indexx() {
         return "admin/index";
     }
 

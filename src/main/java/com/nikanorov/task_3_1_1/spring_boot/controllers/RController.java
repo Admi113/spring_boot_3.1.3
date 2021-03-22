@@ -53,6 +53,13 @@ public class RController {
         return users;
     }
 
+    @PostMapping("/update")
+    public void updateteUser(@RequestBody User user) {
+        int id = user.getId();
+        userServicee.update(user,id);
+
+    }
+
 
 //    @GetMapping
 //    public String index(Model model, Principal principal
