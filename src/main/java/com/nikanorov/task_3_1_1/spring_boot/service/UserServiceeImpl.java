@@ -59,6 +59,7 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
         userOld.setSurname(user.getSurname());
         userOld.setAge(user.getAge());
         userOld.setRoles(user.getRoles());
+        userOld.setEmail(user.getEmail());
 
 
         userRepository.save(userOld);

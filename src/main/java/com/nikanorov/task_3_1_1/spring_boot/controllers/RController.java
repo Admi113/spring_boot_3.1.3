@@ -45,6 +45,11 @@ public class RController {
         User user = userServicee.getUserByName(userName);
         return user;
     }
+    @PostMapping("/getOne/{id}")
+    public User getUser(@PathVariable int id) {
+             User user =userServicee.getById(id);
+               return  user;
+    }
 
     @PostMapping("/save")
     public List<User> createUser(@RequestBody User user) {
@@ -53,12 +58,20 @@ public class RController {
         return users;
     }
 
-    @PostMapping("/update")
-    public void updateteUser(@RequestBody User user) {
+    @PutMapping("/edit")
+    public List<User> updateUser(@RequestBody User user) {
         int id = user.getId();
         userServicee.update(user,id);
-
+        List<User> users = userServicee.getAllUsers();
+        return users;
     }
+
+ @DeleteMapping("/delete/{id}")
+    public void updateteUser(@RequestBody int id) {
+        userServicee.delete(id);
+    }
+
+
 
 
 //    @GetMapping
