@@ -168,14 +168,6 @@ const printUsers = (users, roles) => {
     }
 }
 
-// const printTable = (url) => {
-//     fetch(url)
-//         .then(response => {
-//             response.json()
-//                 .then(data => printUsers(data))
-//         })
-// }
-// printTable(getUSersUrl);
 const printTable = () => {
     fetch(getUSersUrl)
         .then(response => {
@@ -272,8 +264,6 @@ addUserForm.addEventListener("submit", (e) => {
             roles.push(data)
         }
     }
-    // console.log(roles);
-
     fetch("http://localhost:8081/admin/save", {
         method: "POST",
         headers: {
@@ -312,7 +302,6 @@ editUserForm.addEventListener("submit", (e) => {
             rolesmodal.push(dataroles)
         }
     }
-    // console.log(roles);
 
     fetch("http://localhost:8081/admin/edit", {
         method: "PUT",
@@ -340,21 +329,6 @@ editUserForm.addEventListener("submit", (e) => {
 
 })
 
-
-// editUserForm.addEventListener("submit", (e) => {
-//     e.preventDefault();
-//     console.log("i hate fcking js")
-// })
-
-
-// $(document).ready(function () {
-//
-//     $('.table .eBtn').on('click',function (event){
-//
-//         $('.myForm #exampleModal').modal();
-//         console.log("WTF");
-//     });
-// });
 
 function clickeBtn() {
     console.log(event.target.parent)
