@@ -47,6 +47,8 @@ public class UserServiceeImpl implements UserServicee, UserDetailsService {
     @Override
     public void update(User user, int id) {
 
+//        String pass = user.getPassword();
+//        user.setPassword(passwordEncoder.encode(pass));
         User userOld = null;
         Optional<User> userOlds = userRepository.findById(id);
 

@@ -1,6 +1,6 @@
-const getUSersUrl = "http://localhost:8081/admin/users/";
-const getRolesUrl = "http://localhost:8081/admin/roles/";
-const getCurrentUser = "http://localhost:8081/admin/auth/";
+const getUSersUrl = "http://localhost:8081/users/";
+const getRolesUrl = "http://localhost:8081/roles/";
+const getCurrentUser = "http://localhost:8081/auth/";
 const addUserForm = document.querySelector('.add-user-form');
 const editUserForm = document.querySelector('.edit-user-form');
 const deleteUserForm = document.querySelector('.delete-user-form');
@@ -31,9 +31,8 @@ fetch(getRolesUrl)
     })
 // console.log(roles)
 
-
 // ----------------------------Users Table--------------------------------------------
-const printUsers = (users, roles) => {
+const printUsers = (users) => {
     {
         let temp = "";
         // console.log(users);
@@ -175,19 +174,41 @@ const printUsers = (users, roles) => {
         }
     }
 }
+//----------------------------ABOUT USER-----------------------------------------------------
+const prinCurrentUser = (user) => {
+    {
+        let temp = "";
+        // console.log(users);
+
+                temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
+                                                    <td >${user.name}</td>
+                                                    <td >${user.surname}</td>
+                                                    <td >${user.age}</td>
+                                                    <td >${user.email}</td><td>`
+                for (let i = 0; i < user.roles.length; i++) {
+                    temp += `${user.roles[i].role} `
+                }
+                temp += `</td >`
+                document.getElementById("aboutUserTable").innerHTML = temp;
+    }
+}
+const printUser = () => {
+    fetch(getCurrentUser)
+        .then(response => {
+            response.json()
+                .then(data => {
+                    prinCurrentUser(data)
+                })
+        })
+}
+printUser();
 
 const printTable = () => {
     fetch(getUSersUrl)
         .then(response => {
             response.json()
-                .then(data1 => {
-                    fetch(getRolesUrl)
-                        .then(response => {
-                            response.json()
-                                .then(data => {
-                                    printUsers(data1, data)
-                                })
-                        })
+                .then(data => {
+                    printUsers(data)
                 })
         })
 }
@@ -272,7 +293,7 @@ addUserForm.addEventListener("submit", (e) => {
             roles.push(data)
         }
     }
-    fetch("http://localhost:8081/admin/save", {
+    fetch("http://localhost:8081/save", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -292,6 +313,13 @@ addUserForm.addEventListener("submit", (e) => {
                     // printUsers(data)
                     printTable();
                     document.getElementById('userCreateForm').reset();
+                    document.getElementById('firstTabList').classList.add("active")
+                    document.getElementById('firstTabList').setAttribute("aria-selected","true")
+                    document.getElementById('secondTab').classList.remove("active")
+                    document.getElementById('secondTab').setAttribute("aria-selected","false")
+                    document.getElementById('home').classList.add("active")
+                    document.getElementById('profile').classList.remove("active")
+
                 })
         });
 
@@ -300,7 +328,7 @@ addUserForm.addEventListener("submit", (e) => {
 function clickeBtn() {
 
     let id = event.target.id
-    fetch("http://localhost:8081/admin/getOne/" + id, {
+    fetch("http://localhost:8081/getOne/" + id, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -345,7 +373,7 @@ function clickeBtnDelete() {
     // console.log(event.target.parent)
     // console.log(event.target.id)
     let id = event.target.id
-    fetch("http://localhost:8081/admin/getOne/" + id, {
+    fetch("http://localhost:8081/getOne/" + id, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -399,7 +427,7 @@ editUserForm.addEventListener("submit", (e) => {
         }
     }
 
-    fetch("http://localhost:8081/admin/edit", {
+    fetch("http://localhost:8081/edit", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -437,7 +465,7 @@ deleteUserForm.addEventListener("submit", (e) => {
         }
     }
     let id = document.getElementById("id_modal_delete").value
-    fetch("http://localhost:8081/admin/delete/" + id, {
+    fetch("http://localhost:8081/delete/" + id, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

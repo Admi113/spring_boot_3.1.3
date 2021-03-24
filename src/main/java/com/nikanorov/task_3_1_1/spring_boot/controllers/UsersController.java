@@ -12,26 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UsersController {
 
 
-    private UserServicee userServicee;
-
-    @Autowired
-    public UsersController(RoleService roleService, UserServicee userServicee) {
-        this.userServicee = userServicee;
+    @GetMapping
+    public String showUser() {
+        return "user/show";
     }
-
-
-//    @GetMapping
-//    public String showUserInfo(Model model, Authentication authentication) {
-//        String userName = authentication.getName();
-//        User user = userServicee.getUserByName(userName);
-//        model.addAttribute("roles", user.getRolesList());
-//        model.addAttribute("currentuser", user);
-//        return "user/show";
-//    }
 
 
 }

@@ -1,4 +1,4 @@
-    // const editUserForm = document.querySelector('.modal-open');
+document.getElementById('secondTab').setAttribute("tab","tab")
     console.log(document.readyState)
     console.log(document.querySelector('.tBtn'))
 

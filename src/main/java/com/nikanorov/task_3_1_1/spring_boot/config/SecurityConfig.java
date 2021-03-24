@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()// указываем страницу с формой логина
-//                .loginPage("/admin/login")
+                .loginPage("/admin/login")
 //                //указываем логику обработки при логине
                 .successHandler(loginSuccessHandler)
 
@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 // указываем URL при удачном логауте
 //                .logoutSuccessUrl("/login?logout")
-                .logoutSuccessHandler(logoutSuccessHandlerr)
+//                .logoutSuccessHandler(logoutSuccessHandlerr)
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
 
@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // защищенные URL
                 .antMatchers("/admin/**")
                 .access("hasAnyRole('ADMIN')")
-                .antMatchers("/users/**")
+                .antMatchers("/user/**")
                 .access("hasAnyRole('ADMIN','USER')")
                 .anyRequest().authenticated();
     }
