@@ -15,9 +15,7 @@ const ageModalDelete = document.getElementById('age_delete');
 const emailModal = document.getElementById('email');
 const emailModalDelete = document.getElementById('email_delete');
 const passwordModal = document.getElementById('password');
-// const passwordModalDelete = document.getElementById('password_delete');
-// const selectRoleModal = document.getElementById('select_role_editform');
-// const selectRoleModalDelete = document.getElementById('select_role_deleteform ');
+
 
 
 let roles
@@ -26,10 +24,10 @@ fetch(getRolesUrl)
         response.json()
             .then(data => {
                 roles = data
-                // console.log(roles)
+
             })
     })
-// console.log(roles)
+
 
 // ----------------------------Users Table--------------------------------------------
 const printUsers = (users) => {
