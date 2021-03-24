@@ -67,7 +67,7 @@ public class RController {
     }
 
  @DeleteMapping("/delete/{id}")
-    public void updateteUser(@RequestBody int id) {
+    public void updateteUser(@PathVariable int id) {
         userServicee.delete(id);
     }
 

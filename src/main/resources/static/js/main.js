@@ -3,13 +3,21 @@ const getRolesUrl = "http://localhost:8081/admin/roles/";
 const getCurrentUser = "http://localhost:8081/admin/auth/";
 const addUserForm = document.querySelector('.add-user-form');
 const editUserForm = document.querySelector('.edit-user-form');
+const deleteUserForm = document.querySelector('.delete-user-form');
 const idModal = document.getElementById('id_modal');
+const idModalDelete = document.getElementById('id_modal_delete');
 const nameModal = document.getElementById('firstname');
+const nameModalDelete = document.getElementById('firstname_delete');
 const surnameModal = document.getElementById('lastname');
+const surnameModalDelete = document.getElementById('lastname_delete');
 const ageModal = document.getElementById('age');
+const ageModalDelete = document.getElementById('age_delete');
 const emailModal = document.getElementById('email');
+const emailModalDelete = document.getElementById('email_delete');
 const passwordModal = document.getElementById('password');
-const selectRoleModal = document.getElementById('select_role_editform');
+// const passwordModalDelete = document.getElementById('password_delete');
+// const selectRoleModal = document.getElementById('select_role_editform');
+// const selectRoleModalDelete = document.getElementById('select_role_deleteform ');
 
 
 let roles
@@ -42,19 +50,19 @@ const printUsers = (users, roles) => {
                     temp += `${user.roles[i].role} `
                 }
                 temp += `</td >`
-                //    <td> <div class="container" style="margin-top: -5%;margin-left: -15% ">
-                //          <a href="http://localhost:8081/admin/users/" type="button" id="${user.id}" class="btn btn-primary edit-user-form" data-toggle="modal"
-                //          data-target="#exampleModal">Edit</a> </div></td>
-                //
-                // </tr>`
-
-                // <!--    Edit в Таблице!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 
                 temp += ` <td><div class="container" style="margin-top: -5%;margin-left: -15% ">
                             <a type="button" class="btn btn-primary tBtn" id="${user.id}"
                             data-toggle="modal" data-target="#editModal" onclick="clickeBtn()" >Edit
                                 </a>
-                         </div>`
+                         </div></td>`
+
+                temp += ` <td><div class="container" style="margin-top: -5%;margin-left: -15% ">
+                            <a type="button" class="btn btn-danger delBtn" id="${user.id}"
+                            data-toggle="modal" data-target="#deleteModal" onclick="clickeBtnDelete()" >Delete
+                                </a>
+                         </div></td>`
+
 
                 // temp += `<div class="modal fade " id="editModal${user.id}" tabindex="-1" role="dialog"
                 //              aria-labelledby="editModalLabel"
@@ -282,58 +290,15 @@ addUserForm.addEventListener("submit", (e) => {
             response.json()
                 .then(data => {
                     // printUsers(data)
-                    printTable()
+                    printTable();
+                    document.getElementById('userCreateForm').reset();
                 })
         });
 
 })
-
-editUserForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let role1 = document.getElementById("select_role_editform");
-    // console.log(role)
-    const rolesmodal = [];
-    for (let i = 0; i < role1.length; i++) {
-        if (role1[i].selected) {
-            let dataroles = {
-                id: Number(role1[i].value),
-                role: role1[i].text
-            }
-            rolesmodal.push(dataroles)
-        }
-    }
-
-    fetch("http://localhost:8081/admin/edit", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            id: document.getElementById("id_modal").value,
-            name: document.getElementById("firstname").value,
-            surname: document.getElementById("lastname").value,
-            password: document.getElementById("password").value,
-            email: document.getElementById("email").value,
-            age: document.getElementById("age").value,
-            roles: rolesmodal
-        })
-    })
-        .then(response => {
-            response.json()
-                .then(data => {
-                    // printUsers(data)
-                    printTable()
-                    $('.mymodal').modal('hide')
-                })
-        });
-
-})
-
 
 function clickeBtn() {
-    console.log(event.target.parent)
 
-    console.log(event.target.id)
     let id = event.target.id
     fetch("http://localhost:8081/admin/getOne/" + id, {
         method: "POST",
@@ -375,3 +340,114 @@ function clickeBtn() {
                 })
         })
 }
+
+function clickeBtnDelete() {
+    // console.log(event.target.parent)
+    // console.log(event.target.id)
+    let id = event.target.id
+    fetch("http://localhost:8081/admin/getOne/" + id, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: id
+        })
+    })
+        .then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data)
+                    idModalDelete.value = data.id;
+                    nameModalDelete.value = data.name;
+                    surnameModalDelete.value = data.surname;
+                    ageModalDelete.value = data.age;
+                    emailModalDelete.value = data.email;
+
+                    fetch(getRolesUrl)
+                        .then(response => {
+                            response.json()
+                                .then(roles => {
+                                    let temp = "";
+                                    if (roles.length > 0) {
+                                        roles.forEach((role) => {
+                                            temp += `<option value= ${role.id} >`
+                                            temp += ` ${role.role} `
+                                            temp += `</option> `
+
+                                        })
+                                        document.getElementById("select_role_deleteform").innerHTML = temp
+                                    }
+                                })
+                        })
+                })
+        })
+}
+
+editUserForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let role1 = document.getElementById("select_role_editform");
+    // console.log(role)
+    const rolesmodal = [];
+    for (let i = 0; i < role1.length; i++) {
+        if (role1[i].selected) {
+            let dataroles = {
+                id: Number(role1[i].value),
+                role: role1[i].text
+            }
+            rolesmodal.push(dataroles)
+        }
+    }
+
+    fetch("http://localhost:8081/admin/edit", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: document.getElementById("id_modal").value,
+            name: document.getElementById("firstname").value,
+            surname: document.getElementById("lastname").value,
+            password: document.getElementById("password").value,
+            email: document.getElementById("email").value,
+            age: document.getElementById("age").value,
+            roles: rolesmodal
+        })
+    })
+        .then(() => {
+            printTable()
+            $('.editmodal').modal('hide');
+            $('.modal-backdrop').remove();
+        });
+
+})
+
+deleteUserForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let role1 = document.getElementById("select_role_deleteform");
+    // console.log(role)
+    const rolesmodal = [];
+    for (let i = 0; i < role1.length; i++) {
+        if (role1[i].selected) {
+            let dataroles = {
+                id: Number(role1[i].value),
+                role: role1[i].text
+            }
+            rolesmodal.push(dataroles)
+        }
+    }
+    let id = document.getElementById("id_modal_delete").value
+    fetch("http://localhost:8081/admin/delete/" + id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+
+    })
+        .then(() => {
+            printTable()
+            $('.deletemodal').modal('hide');
+            $('.modal-backdrop').remove();
+        });
+
+})
