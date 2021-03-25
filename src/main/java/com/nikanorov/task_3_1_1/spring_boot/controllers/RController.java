@@ -17,8 +17,8 @@ import java.util.List;
 @RequestMapping("/")
 public class RController {
 
-    private RoleService roleService;
-    private UserServicee userServicee;
+    final private RoleService roleService;
+    private final UserServicee userServicee;
 
 
     @Autowired
@@ -45,10 +45,11 @@ public class RController {
         User user = userServicee.getUserByName(userName);
         return user;
     }
+
     @PostMapping("/getOne/{id}")
     public User getUser(@PathVariable int id) {
-             User user =userServicee.getById(id);
-               return  user;
+        User user = userServicee.getById(id);
+        return user;
     }
 
     @PostMapping("/save")
@@ -61,12 +62,12 @@ public class RController {
     @PutMapping("/edit")
     public List<User> updateUser(@RequestBody User user) {
         int id = user.getId();
-        userServicee.update(user,id);
+        userServicee.update(user, id);
         List<User> users = userServicee.getAllUsers();
         return users;
     }
 
- @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void updateteUser(@PathVariable int id) {
         userServicee.delete(id);
     }

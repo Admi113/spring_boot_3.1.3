@@ -17,7 +17,6 @@ const emailModalDelete = document.getElementById('email_delete');
 const passwordModal = document.getElementById('password');
 
 
-
 let roles
 fetch(getRolesUrl)
     .then(response => {
@@ -178,16 +177,16 @@ const prinCurrentUser = (user) => {
         let temp = "";
         // console.log(users);
 
-                temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
+        temp += `<tr id="idrow${user.id}"> <td >${user.id}</td>
                                                     <td >${user.name}</td>
                                                     <td >${user.surname}</td>
                                                     <td >${user.age}</td>
                                                     <td >${user.email}</td><td>`
-                for (let i = 0; i < user.roles.length; i++) {
-                    temp += `${user.roles[i].role} `
-                }
-                temp += `</td >`
-                document.getElementById("aboutUserTable").innerHTML = temp;
+        for (let i = 0; i < user.roles.length; i++) {
+            temp += `${user.roles[i].role} `
+        }
+        temp += `</td >`
+        document.getElementById("aboutUserTable").innerHTML = temp;
     }
 }
 const printUser = () => {
@@ -312,9 +311,9 @@ addUserForm.addEventListener("submit", (e) => {
                     printTable();
                     document.getElementById('userCreateForm').reset();
                     document.getElementById('firstTabList').classList.add("active")
-                    document.getElementById('firstTabList').setAttribute("aria-selected","true")
+                    document.getElementById('firstTabList').setAttribute("aria-selected", "true")
                     document.getElementById('secondTab').classList.remove("active")
-                    document.getElementById('secondTab').setAttribute("aria-selected","false")
+                    document.getElementById('secondTab').setAttribute("aria-selected", "false")
                     document.getElementById('home').classList.add("active")
                     document.getElementById('profile').classList.remove("active")
 
@@ -402,6 +401,9 @@ function clickeBtnDelete() {
                                             temp += `</option> `
 
                                         })
+
+
+
                                         document.getElementById("select_role_deleteform").innerHTML = temp
                                     }
                                 })
@@ -441,7 +443,35 @@ editUserForm.addEventListener("submit", (e) => {
         })
     })
         .then(() => {
-            printTable()
+            // printTable()
+            let id = idModal.value
+            let temp = "";
+
+            temp += `<td >${idModal.value}</td>
+            <td >${nameModal.value}</td>
+            <td >${surnameModal.value}</td>
+            <td >${ageModal.value}</td>
+            <td >${emailModal.value}</td><td>`
+
+            for (let i = 0; i < rolesmodal.length; i++) {
+                temp += `${rolesmodal[i].role} `
+            }
+            temp += `</td >`
+            temp += ` <td><div class="container" style="margin-top: -5%;margin-left: -15% ">
+                            <a type="button" class="btn btn-primary tBtn" id="${idModal.value}"
+                            data-toggle="modal" data-target="#editModal" onclick="clickeBtn()" >Edit
+                                </a>
+                         </div></td>`
+
+            temp += ` <td><div class="container" style="margin-top: -5%;margin-left: -15% ">
+                            <a type="button" class="btn btn-danger delBtn" id="${idModal.value}"
+                            data-toggle="modal" data-target="#deleteModal" onclick="clickeBtnDelete()" >Delete
+                                </a>
+                         </div></td>`
+            document.getElementById("idrow" + idModal.value).innerHTML = temp;
+
+            // let ell=document.getElementById("idrow"+id);
+            // ell.parentElement.removeChild(ell);
             $('.editmodal').modal('hide');
             $('.modal-backdrop').remove();
         });
@@ -450,8 +480,8 @@ editUserForm.addEventListener("submit", (e) => {
 
 deleteUserForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
     let role1 = document.getElementById("select_role_deleteform");
-    // console.log(role)
     const rolesmodal = [];
     for (let i = 0; i < role1.length; i++) {
         if (role1[i].selected) {
@@ -471,7 +501,10 @@ deleteUserForm.addEventListener("submit", (e) => {
 
     })
         .then(() => {
-            printTable()
+            console.log(id)
+            let ell = document.getElementById("idrow" + id);
+            ell.parentElement.removeChild(ell);
+            // printTable()
             $('.deletemodal').modal('hide');
             $('.modal-backdrop').remove();
         });
